@@ -50,6 +50,10 @@ package %w[php php-gd php-mbstring php-intl
   action :install
 end
 
+service 'php-fpm' do
+  action %i[enable start]
+end
+
 mariadb_repository 'install'
 
 mariadb_server_install 'package' do
