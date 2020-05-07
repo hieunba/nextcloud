@@ -22,3 +22,7 @@ package %w[policycoreutils-python-utils mlocate
 end
 
 package 'httpd'
+
+service 'httpd' do
+  action %i[enable start]
+end
