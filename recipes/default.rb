@@ -38,3 +38,8 @@ package 'remi-release' do
   source remi_pkg_local_path
   action :install
 end
+
+execute 'install php:remi-7.4 module' do
+  command 'dnf module install -y php:remi-7.4'
+  not_if 'dnf module --installed list php:remi-7.4'
+end

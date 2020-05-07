@@ -26,4 +26,8 @@ if os.redhat?
   describe command('dnf repolist --repo remi') do
     its('exit_status') { should eq 0 }
   end
+
+  describe command('dnf module --installed list php:remi-7.4') do
+    its('exit_status') { should eq 0 }
+  end
 end
