@@ -49,3 +49,10 @@ package %w[php php-gd php-mbstring php-intl
   php-opcache php-json php-pecl-zip] do
   action :install
 end
+
+mariadb_repository 'install'
+
+mariadb_server_install 'package' do
+  action [:install, :create]
+  password node['nextcloud']['mysql_password']
+end
