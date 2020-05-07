@@ -67,6 +67,15 @@ mariadb_user node['nextcloud']['config']['dbuser'] do
   action :create
 end
 
+mariadb_database node['nextcloud']['config']['dbname'] do
+  user node['nextcloud']['config']['dbuser']
+  password node['nextcloud']['mysql_password']
+  encoding 'utf8mb4'
+  collation 'utf8mb4_general_ci'
+  sql 'flush privileges'
+  action :create
+end
+
 require 'uri'
 parsed_uri = URI.parse(node['nextcloud']['source'])
 nextcloud_filename = parsed_uri.request_uri.gsub(/\/server\/releases\//, '')
