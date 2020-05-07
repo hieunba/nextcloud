@@ -8,13 +8,15 @@ provisioner:
   # For example:
   #   always_update_cookbooks: <%= !ENV['CI'] %>
   always_update_cookbooks: true
+  product_name: chef
+  product_version: 14.10.9
 
 verifier:
   name: inspec
 
 platforms:
   - name: ubuntu-16.04
-  - name: centos-7
+  - name: centos-8
 
 suites:
   - name: default
