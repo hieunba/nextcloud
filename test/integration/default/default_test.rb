@@ -30,4 +30,12 @@ if os.redhat?
   describe command('dnf module --installed list php:remi-7.4') do
     its('exit_status') { should eq 0 }
   end
+
+  %w[php php-gd php-mbstring php-intl
+    php-pecl-apcu php-mysqlnd
+    php-opcache php-json php-pecl-zip].each do |php_package|
+    describe package(php_package) do
+      it { should be_installed }
+    end
+  end
 end

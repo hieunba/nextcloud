@@ -43,3 +43,9 @@ execute 'install php:remi-7.4 module' do
   command 'dnf module install -y php:remi-7.4'
   not_if 'dnf module --installed list php:remi-7.4'
 end
+
+package %w[php php-gd php-mbstring php-intl
+  php-pecl-apcu php-mysqlnd
+  php-opcache php-json php-pecl-zip] do
+  action :install
+end
