@@ -5,14 +5,12 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at http://inspec.io/docs/reference/resources/
 
-unless os.windows?
-  # This is an example test, replace with your own test.
-  describe user('root'), :skip do
-    it { should exist }
+if os.redhat?
+  %w[epel-release yum-utils unzip
+    bash-completion policycoreutils-python-utils
+    mlocate bzip2 curl wget].each do |require_pkg|
+    describe package(require_pkg) do
+      it { should be_installed }
+    end
   end
-end
-
-# This is an example test, replace it with your own test.
-describe port(80), :skip do
-  it { should_not be_listening }
 end
