@@ -22,4 +22,8 @@ if os.redhat?
     it { should be_enabled }
     it { should be_running }
   end
+
+  describe command('dnf repolist --repo remi') do
+    its('exit_status') { should eq 0 }
+  end
 end

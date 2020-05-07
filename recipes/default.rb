@@ -26,3 +26,15 @@ package 'httpd'
 service 'httpd' do
   action %i[enable start]
 end
+
+remi_pkg_local_path = "#{Chef::Config[:file_cache_path]}/remi-release-8.rpm"
+
+remote_file remi_pkg_local_path do
+  source 'https://rpms.remirepo.net/enterprise/remi-release-8.rpm'
+  action :create
+end
+
+package 'remi-release' do
+  source remi_pkg_local_path
+  action :install
+end
