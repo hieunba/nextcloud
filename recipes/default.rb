@@ -20,3 +20,5 @@ package %w[policycoreutils-python-utils mlocate
           epel-release bash-completion] do
   action :install
 end
+
+package 'httpd'

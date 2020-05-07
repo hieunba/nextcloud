@@ -13,4 +13,8 @@ if os.redhat?
       it { should be_installed }
     end
   end
+
+  describe package('httpd') do
+    it { should be_installed }
+  end
 end
