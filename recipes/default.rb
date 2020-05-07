@@ -17,7 +17,7 @@
 # limitations under the License.
 
 package %w[policycoreutils-python-utils mlocate
-          epel-release bash-completion] do
+          epel-release bash-completion bzip2] do
   action :install
 end
 
