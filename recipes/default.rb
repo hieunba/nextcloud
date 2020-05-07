@@ -56,3 +56,63 @@ mariadb_server_install 'package' do
   action [:install, :create]
   password node['nextcloud']['mysql_password']
 end
+
+mariadb_user node['nextcloud']['config']['dbuser'] do
+  password node['nextcloud']['mysql_password']
+  ctrl_password node['nextcloud']['mysql_password']
+  action :create
+end
+
+require 'uri'
+parsed_uri = URI.parse(node['nextcloud']['source'])
+nextcloud_filename = parsed_uri.request_uri.gsub(/\/server\/releases\//, '')
+
+nextcloud_artifact_local_path = "#{Chef::Config[:file_cache_path]}/#{nextcloud_filename}"
+
+remote_file nextcloud_artifact_local_path do
+  source node['nextcloud']['source']
+  checksum node['nextcloud']['checksum'] if node['nextcloud']['checksum']
+  action :create
+end
+
+nextcloud_config_path = '/var/www/nextcloud/config/config.php'
+
+directory '/var/www' do
+  owner 'root'
+  group 'root'
+  mode 0o755
+  action :create
+end
+
+execute 'extract nextcloud artifact' do
+  command "tar xf #{nextcloud_artifact_local_path} -C /var/www/"
+  creates nextcloud_config_path
+end
+
+execute 'update permissions for nextcloud directory' do
+  command "chown -R apache: /var/www/nextcloud"
+  creates nextcloud_config_path
+end
+
+template nextcloud_config_path do
+  source 'config.php.erb'
+  owner 'apache'
+  group 'apache'
+  mode 0o640
+  variables(
+    dbtype: node['nextcloud']['config']['dbtype'],
+    dbname: node['nextcloud']['config']['dbname'],
+    dbhost: node['nextcloud']['config']['dbhost'],
+    dbuser: node['nextcloud']['config']['dbuser'],
+    dbpassword: node['nextcloud']['config']['dbpassword']
+  )
+end
+
+template '/etc/httpd/conf.d/cloud.conf' do
+  source 'nextcloud.conf.erb'
+  owner 'root'
+  group 'root'
+  mode 0o775
+  action :create
+  notifies :reload, 'service[httpd]', :delayed
+end
