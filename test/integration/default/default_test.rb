@@ -48,12 +48,6 @@ if os.redhat?
     it { should be_running }
   end
 
-  describe file('/var/www/nextcloud/config/config.php') do
-    it { should exist }
-    its('owner') { should cmp 'apache' }
-    its('group') { should cmp 'apache' }
-  end
-
   describe file('/etc/httpd/conf.d/cloud.conf') do
     it { should exist }
     its('owner') { should cmp 'root' }
