@@ -121,7 +121,7 @@ template nextcloud_config_path do
     dbuser: node['nextcloud']['config']['dbuser'],
     dbpassword: node['nextcloud']['config']['dbpassword']
   )
-  action :absent
+  action :delete
 end
 
 template nextcloud_objectstore_config_path do
