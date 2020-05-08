@@ -110,6 +110,13 @@ execute 'update permissions for nextcloud directory' do
   creates nextcloud_config_path
 end
 
+directory '/var/www/nextcloud/data' do
+  owner 'apache'
+  group 'apache'
+  mode 0o770
+  action :create
+end
+
 execute 'allow httpd connect to database' do
   command "setsebool -P httpd_can_network_connect on"
 end
