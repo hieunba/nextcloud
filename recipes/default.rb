@@ -62,6 +62,7 @@ mariadb_server_install 'package' do
 end
 
 mariadb_user node['nextcloud']['config']['dbuser'] do
+  database_name node['nextcloud']['config']['dbname']
   password node['nextcloud']['mysql_password']
   ctrl_password node['nextcloud']['mysql_password']
   action :create
