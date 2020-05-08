@@ -157,6 +157,7 @@ template nextcloud_autoconfig_path do
     dbpassword: node['nextcloud']['config']['dbpassword']
   )
   action :create
+  not_if { ::File.exist?(nextcloud_config_path) }
 end
 
 template '/etc/httpd/conf.d/cloud.conf' do
