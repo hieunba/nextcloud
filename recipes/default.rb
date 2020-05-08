@@ -98,6 +98,7 @@ end
 nextcloud_config_path = '/var/www/nextcloud/config/config.php'
 nextcloud_autoconfig_path = '/var/www/nextcloud/config/autoconfig.php'
 nextcloud_objectstore_config_path = '/var/www/nextcloud/config/objectstore.config.php'
+nextcloud_email_config_path = '/var/www/nextcloud/config/email.config.php'
 
 directory '/var/www' do
   owner 'root'
@@ -144,6 +145,14 @@ end
 
 template nextcloud_objectstore_config_path do
   source 'objectstore.config.php.erb'
+  owner 'apache'
+  group 'apache'
+  mode 0o640
+  action :create
+end
+
+template nextcloud_email_config_path do
+  source 'email.config.php.erb'
   owner 'apache'
   group 'apache'
   mode 0o640

@@ -1,0 +1,16 @@
+<?php
+$CONFIG = array(
+  'mail_domain' => '<%= node["nextcloud"]["config"]["mail_domain"] %>',
+  'mail_from_address' => '<%= node["nextcloud"]["config"]["mail_from_address"] %>',
+  'mail_smtpdebug' => false,
+  'mail_smtpmode' => '<%= node["nextcloud"]["config"]["mail_smtpmode"] %>',
+  'mail_smtphost' => '<%= node["nextcloud"]["config"]["mail_smtphost"] %>',
+  'mail_smtptimeout' => <%= node["nextcloud"]["config"]["mail_smtptimeout"] %>,
+  'mail_smtpsecure' => '<%= node["nextcloud"]["config"]["mail_smtpsecure"] %>',
+  'mail_smtpauth' => <%= node["nextcloud"]["config"]["mail_smtpauth"] %>,
+  'mail_smtpauthtype' => '<%= node["nextcloud"]["config"]["mail_smtpauthtype"] %>',
+  'mail_smtpname' => '<%= node["nextcloud"]["config"]["mail_smtpname"] %>',
+  'mail_smtppassword' => '<%= node["nextcloud"]["config"]["mail_smtppassword"] %>',
+  'mail_sendmailmode' => '<%= node["nextcloud"]["config"]["mail_sendmailmode"] %>',
+);
+
