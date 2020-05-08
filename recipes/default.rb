@@ -148,8 +148,6 @@ template nextcloud_autoconfig_path do
   action :create
 end
 
-template 
-
 template '/etc/httpd/conf.d/cloud.conf' do
   source 'nextcloud.conf.erb'
   owner 'root'
