@@ -1,0 +1,15 @@
+<?php
+$CONFIG = array (
+  'objectstore' => [
+	'class' => 'OC\\Files\\ObjectStore\\S3',
+	'arguments' => [
+		'bucket' => '<%= node["nextcloud"]["config"]["objectstore_bucket"] %>',
+		'autocreate' => 'false',
+		'key' => '<%= node["nextcloud"]["config"]["objectstore_key"] %>',
+		'secret' => '<%= node["nextcloud"]["config"]["objectstore_key"] %>',
+		'region' => 'us-east-1',
+                'hostname' => 's3.wasabisys.com',
+                'use_ssl' => true,
+     ],
+  ],
+);

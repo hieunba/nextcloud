@@ -89,6 +89,8 @@ remote_file nextcloud_artifact_local_path do
 end
 
 nextcloud_config_path = '/var/www/nextcloud/config/config.php'
+nextcloud_autoconfig_path = '/var/www/nextcloud/config/autoconfig.php'
+nextcloud_objectstore_config_path = '/var/www/nextcloud/config/objectstore.config.php'
 
 directory '/var/www' do
   owner 'root'
@@ -119,7 +121,33 @@ template nextcloud_config_path do
     dbuser: node['nextcloud']['config']['dbuser'],
     dbpassword: node['nextcloud']['config']['dbpassword']
   )
+  action :absent
 end
+
+template nextcloud_objectstore_config_path do
+  source 'objectstore.config.php.erb'
+  owner 'apache'
+  group 'apache'
+  mode 0o640
+  action :create
+end
+
+template nextcloud_autoconfig_path do
+  source 'autoconfig.php.erb'
+  owner 'apache'
+  group 'apache'
+  mode 0o640
+  variables(
+    dbtype: node['nextcloud']['config']['dbtype'],
+    dbname: node['nextcloud']['config']['dbname'],
+    dbhost: node['nextcloud']['config']['dbhost'],
+    dbuser: node['nextcloud']['config']['dbuser'],
+    dbpassword: node['nextcloud']['config']['dbpassword']
+  )
+  action :create
+end
+
+template 
 
 template '/etc/httpd/conf.d/cloud.conf' do
   source 'nextcloud.conf.erb'
