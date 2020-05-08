@@ -110,6 +110,10 @@ execute 'update permissions for nextcloud directory' do
   creates nextcloud_config_path
 end
 
+execute 'allow httpd connect to database' do
+  command "setsebool -P httpd_can_network_connect on"
+end
+
 template nextcloud_config_path do
   source 'config.php.erb'
   owner 'apache'
