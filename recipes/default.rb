@@ -128,21 +128,6 @@ execute 'allow httpd connect to database' do
   command "setsebool -P httpd_can_network_connect on"
 end
 
-template nextcloud_config_path do
-  source 'config.php.erb'
-  owner 'apache'
-  group 'apache'
-  mode 0o640
-  variables(
-    dbtype: node['nextcloud']['config']['dbtype'],
-    dbname: node['nextcloud']['config']['dbname'],
-    dbhost: node['nextcloud']['config']['dbhost'],
-    dbuser: node['nextcloud']['config']['dbuser'],
-    dbpassword: node['nextcloud']['config']['dbpassword']
-  )
-  action :delete
-end
-
 template nextcloud_objectstore_config_path do
   source 'objectstore.config.php.erb'
   owner 'apache'
