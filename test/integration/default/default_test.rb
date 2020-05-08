@@ -33,7 +33,7 @@ if os.redhat?
 
   %w[php php-gd php-mbstring php-intl
     php-pecl-apcu php-mysqlnd
-    php-opcache php-json php-pecl-zip].each do |php_package|
+    php-opcache php-json php-pecl-zip php-process].each do |php_package|
     describe package(php_package) do
       it { should be_installed }
     end
