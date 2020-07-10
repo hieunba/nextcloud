@@ -117,7 +117,7 @@ execute 'update permissions for nextcloud directory' do
   creates nextcloud_config_path
 end
 
-directory '/var/www/nextcloud/data' do
+directory node['nextcloud']['config']['datadirectory'] do
   owner 'apache'
   group 'apache'
   mode 0o770
