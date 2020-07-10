@@ -1,6 +1,7 @@
 default['nextcloud']['mysql_password'] = 'change-me'
-default['nextcloud']['source'] = 'https://download.nextcloud.com/server/releases/nextcloud-18.0.4.tar.bz2'
-default['nextcloud']['checksum'] = 'fad8e12632b352247ffc5ae181d4e414d732b9072caa0401774cfdb93a714329'
+default['nextcloud']['version'] = '18.0.6'
+default['nextcloud']['source'] = "https://download.nextcloud.com/server/releases/nextcloud-#{node['nextcloud']['version']}.tar.bz2"
+default['nextcloud']['checksum'] = '3aa185f69c4e5ec7de3b3d5792003aeb4bd16a350865e447c9363019c69b15b2'
 
 default['nextcloud']['config']['webroot'] = '/var/www/nextcloud/'
 
