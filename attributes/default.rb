@@ -10,6 +10,7 @@ default['nextcloud']['config']['dbhost'] = '127.0.0.1:3306'
 default['nextcloud']['config']['dbuser'] = 'ocuser'
 default['nextcloud']['config']['dbpassword'] = node['nextcloud']['mysql_password']
 default['nextcloud']['config']['trusted_domains'] = ['localhost']
+default['nextcloud']['config']['cloud_domain'] = 'localhost'
 default['nextcloud']['config']['datadirectory'] = '/var/www/nextcloud/data'
 
 default['nextcloud']['config']['mail_smtpmode'] = 'smtp'

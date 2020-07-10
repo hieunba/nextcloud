@@ -1,5 +1,8 @@
 <VirtualHost *:80>
   DocumentRoot "<%= node['nextcloud']['config']['webroot'] %>"
+<% if node['platform_family'] == 'rhel' -%>
+  ServerName <%= node['nextcloud']['config']['cloud_domain'] %>
+<% end -%>
 
   <Directory <%= node['nextcloud']['config']['webroot'] %>>
     Require all granted
