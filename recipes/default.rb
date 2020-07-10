@@ -60,6 +60,8 @@ service 'redis' do
   action %i[enable start]
 end
 
+package 'php-pecl-redis5'
+
 mariadb_repository 'install'
 
 mariadb_server_install 'package' do
