@@ -143,8 +143,9 @@ execute 'SELinux configuration' do
 EOH
 end
 
-execute 'allow httpd connect to database' do
-  command "setsebool -P httpd_can_network_connect on"
+selinux_policy_boolean 'httpd_can_network_connect' do
+  value true
+  notifies, :restart, 'service[httpd]', :immediate
 end
 
 template nextcloud_objectstore_config_path do
