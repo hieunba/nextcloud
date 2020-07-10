@@ -56,6 +56,10 @@ end
 
 package 'redis'
 
+service 'redis' do
+  action %i[enable start]
+end
+
 mariadb_repository 'install'
 
 mariadb_server_install 'package' do
