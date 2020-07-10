@@ -131,16 +131,15 @@ directory node['nextcloud']['config']['appsdirectory'] do
   action :create
 end
 
-execute 'SELinux configuration' do
-  command <<-EOH
-    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/data(/.*)?'
-    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/config(/.*)?'
-    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/apps(/.*)?'
-    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/.htaccess'
-    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/.user.ini'
-    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/3rdparty/aws/aws-sdk-php/src/data/logs(/.*)?'
-    restorecon -Rv #{node['nextcloud']['config']['webroot']}
-EOH
+[ "#{node['nextcloud']['config']['datadirectory']}(/.*)?",
+  "#{node['nextcloud']['config']['appsdirectory']}(/.*)?",
+  "#{node['nextcloud']['config']['webroot']}/config(/.*)?",
+  "#{node['nextcloud']['config']['webroot']}/.htaccess",
+  "#{node['nextcloud']['config']['webroot']}/.user.ini",
+  "#{node['nextcloud']['config']['webroot']}/3rdparty/aws/aws-sdk-php/src/data/logs(/.*)?"].each do |f|
+  selinux_policy_fcontext f do
+    secontext 'httpd_sys_rw_content_t'
+  end
 end
 
 selinux_policy_boolean 'httpd_can_network_connect' do
