@@ -146,7 +146,7 @@ end
 
 selinux_policy_boolean 'httpd_can_network_connect' do
   value true
-  notifies, :restart, 'service[httpd]', :immediate
+  notifies :restart, 'service[httpd]', :immediate
 end
 
 template nextcloud_objectstore_config_path do
