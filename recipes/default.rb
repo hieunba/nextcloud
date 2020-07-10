@@ -124,6 +124,13 @@ directory node['nextcloud']['config']['datadirectory'] do
   action :create
 end
 
+directory node['nextcloud']['config']['appsdirectory'] do
+  owner 'apache'
+  group 'apache'
+  mode 0o770
+  action :create
+end
+
 execute 'SELinux configuration' do
   command <<-EOH
     semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/data(/.*)?'
