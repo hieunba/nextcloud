@@ -54,6 +54,8 @@ service 'php-fpm' do
   action %i[enable start]
 end
 
+package 'redis'
+
 mariadb_repository 'install'
 
 mariadb_server_install 'package' do
