@@ -124,6 +124,18 @@ directory '/var/www/nextcloud/data' do
   action :create
 end
 
+execute 'SELinux configuration' do
+  command <<-EOH
+    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/data(/.*)?'
+    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/config(/.*)?'
+    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/apps(/.*)?'
+    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/.htaccess'
+    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/.user.ini'
+    semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/3rdparty/aws/aws-sdk-php/src/data/logs(/.*)?'
+    restorecon -Rv #{node['nextcloud']['config']['webroot']}
+EOH
+end
+
 execute 'allow httpd connect to database' do
   command "setsebool -P httpd_can_network_connect on"
 end
