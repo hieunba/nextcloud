@@ -46,7 +46,8 @@ end
 
 package %w[php php-gd php-mbstring php-intl
   php-pecl-apcu php-mysqlnd
-  php-opcache php-json php-pecl-zip php-process] do
+  php-opcache php-json php-pecl-zip php-process
+  php-pecl-imagick php-gmp php-bcmath] do
   action :install
 end
 
